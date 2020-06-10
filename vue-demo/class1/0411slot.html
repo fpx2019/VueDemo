@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <wangchunag>
+      <img src="../img/bg.jpg" slot="wangyan" class="img">
+      <template slot-scope="boy">
+        <div>777</div>
+        <h1>{{boy.person}}</h1>
+        <h1 v-for="num in boy.info*1">{{boy.info}}</h1>
+      </template>
+    </wangchunag>
+    <hr>
+    <hr>
+    <my-list :books="books">
+      <template slot="book" slot-scope="item">
+        <li>{{item.bookName}}</li>
+      </template>
+    </my-list>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: function() {
+        return {
+          books: [
+            {name: '三体'},
+            {name: '人类简史'},
+            {name: '经济学原理'},
+            {name: 'JavaScript高级程序设计'},
+          ]
+        }
+      },
+      components: {
+        wangchunag: {
+          template: 
+          `
+            <div>
+              <p>大家好，我是王创</p>
+              <!-- 单个slot，匿名。作用：收留那些无家可归的元素 -->
+              <!-- 具名插槽。作用：收留那些slot值和插槽名字相同的元素 -->
+              <slot name="wangyan"></slot>
+              <!-- 作用域插槽。作用：传递数据 -->
+              <slot person="wangyan" :info="age"></slot>
+            </div>
+          `,
+          data() {
+            return {
+              age: 5
+            }
+          },
+          mounted() {
+            let wangyan = this.$slots.wangyan;
+            console.log(wangyan)
+          }
+        },
+        'my-list': {
+          template: 
+          `
+            <div>
+              <ul>
+                <!-- 作用域插槽也可以是具名插槽 -->
+                <slot name="book" v-for="book in books" :book-name="book.name"></slot>
+              </ul>
+            </div>
+          `,
+          props: {
+            books: {
+              type: Array,
+              default: function() {
+                return []
+              }
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

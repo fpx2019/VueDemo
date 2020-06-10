@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <p>通过计算属性过滤数组</p>
+    <span v-for="(book,index) in booksFilter" :key="index">{{book.title}}</span>
+    <br>
+    <p>通过计算属性对数组排序</p>
+    <span v-for="(book,index) in booksSort" :key="index+'sort'">{{book.title}}</span>
+    <p>v-for中的key属性，需要在key之前加上v-bind，来保证他的属性值是变量</p>
+    <hr>
+    <button data-index="7" @click="clickHandler('arg11111', $event)">click</button>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        books: [
+          {
+            title: 'HTML',
+            author: 'AAA'
+          },
+          {
+            title: 'CSS',
+            author: 'BBB'
+          },
+          {
+            title: 'JS',
+            author: 'CCC'
+          },
+          {
+            title: 'VUE',
+            author: 'CCC'
+          }
+        ]
+      },
+      computed: {
+        booksFilter: function() {
+          return this.books.filter(book => {
+            return book.author.match(/CCC/)
+          })
+        },
+        booksSort: function() {
+          return this.books.sort(function(a,b) {
+            return b.title.length - a.title.length
+          })
+        }
+      },
+      methods: {
+        clickHandler(arg1, e) {
+          console.log(arg1)
+          console.log(e)
+        }
+      },
+    })
+  </script>
+</body>
+</html>

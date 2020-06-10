@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-on:input="inputHandler">
+    <p>{{msg1}}</p>
+    <textarea v-model="msg2"></textarea>
+    <p>{{msg2}}</p>
+    <hr>
+    <span>性别：</span>
+    <label>男</label>
+    <input type="radio" value="male" v-model="sex">
+    <label>女</label>
+    <input type="radio" value="female" v-model="sex">
+    <label>保密</label>
+    <input type="radio" value="none" v-model="sex">
+    <hr>
+    <span>爱好：</span>
+    <label>唱</label>
+    <input type="checkbox" value="sing" v-model="hobby">
+    <label>跳</label>
+    <input type="checkbox" value="dance" v-model="hobby">
+    <label>rap</label>
+    <input type="checkbox" value="rap" v-model="hobby">
+    <label>打篮球</label>
+    <input type="checkbox" value="basketball" v-model="hobby">
+    <p>你的爱好是：{{hobby}}</p>
+    <hr>
+    <span>收货地址：</span>
+    <select v-model="location">
+      <option value="1">京</option>
+      <option value="2">津</option>
+      <option value="3">沪</option>
+      <option value="4">渝</option>
+    </select>
+    <p>收货地址：{{location}}</p>
+    <hr>
+    <span>所学课程：</span>
+    <select multiple v-model="lessons">
+      <option value="1">html</option>
+      <option value="2">css</option>
+      <option value="3">js</option>
+      <option value="4">vue</option>
+    </select>
+    <p>收货地址：{{lessons}}</p>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        msg1: '',
+        msg2: '',
+        isChecked: true,
+        sex: '',
+        hobby: [],
+        location: '',
+        lessons: []
+      },
+      methods: {
+        inputHandler(e) {
+          console.log(e.target.value);
+          this.msg1 = e.target.value
+        }
+      },
+    })
+  </script>
+</body>
+</html>

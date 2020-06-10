@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="myApp">
+    <br>
+    <br>
+    <input type="text" v-model="num1">+
+    <input type="text" v-model="num2">=
+    <span>{{Number(num1)+Number(num2)}}</span>
+    <br>
+    <input type="text" v-model="num3">-
+    <input type="text" v-model="num4">=
+    <span>{{num3-num4}}</span>
+    <br>
+    <input type="text" v-model="num5">*
+    <input type="text" v-model="num6">=
+    <span>{{num5*num6}}</span>
+    <br>
+    <input type="text" v-model="num7">/
+    <input type="text" v-model="num8">=
+    <span>{{num7/num8}}</span>
+  </div>
+  <script id="template" type="x-template">
+    <div class="div-out">
+      <div class="div-in">
+        <ul>
+          <li class="li1">{{num1}}</li>
+          <li class="li2">{{num2}}</li>
+        </ul>
+        <select name="" id="">
+          <option value="1">A</option>
+          
+          <option value="2">B</option>
+        </select>
+      </div>
+      <div class="div-in">
+        <p>7875343</p>
+      </div>
+    </div>
+  </script>
+  <script src="./js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '.myApp',
+      data: {
+        num1: 1,
+        num2: 666,
+        num3: 0,
+        num4: 0,
+        num5: 0,
+        num6: 0,
+        num7: 0,
+        num8: 1
+      },
+      template: `#template`
+    })
+  </script>
+</body>
+</html>

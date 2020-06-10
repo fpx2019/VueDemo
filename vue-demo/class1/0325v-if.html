@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <h1>条件渲染指令</h1>
+    <p>我会出现</p>
+    <p v-if="gender == 'nan'">
+      <span>教练，我要打篮球</span>
+      <span>教练，我要打篮球</span>
+      <span>教练，我要打篮球</span>
+    </p>
+    <p v-else-if="gender == 'nv'">
+      <span>我是女生，漂亮的女生</span>
+      <span>我是女生，漂亮的女生</span>
+      <span>我是女生，漂亮的女生</span>
+    </p>
+    <template v-else>
+      <p>我要回泰国</p>
+      <p>我要回泰国</p>
+      <p>我要回泰国</p>
+    </template>
+    <input type="text" v-model="gender">
+    <hr>
+    <p>人生不相见，动如参与商。</p>
+    <hr>
+    <p>key属性-用来表示是否需要重新渲染</p>
+    <template v-if="type == 'userName'">
+      <label>请输入用户名：</label>
+      <input type="text" placeholder="请输入用户名" key="userName">
+    </template>
+    <template v-else>
+      <label>请输入手机号：</label>
+      <input type="text" placeholder="请输入手机号" key="phone">
+    </template>
+    <button @click="changeType">切换登录方式</button>
+    <p>vue中默认使用最高效的DOM更新方式，即尽可能的复用旧的元素。</p>
+    <p>如果不想复用，需要给元素添加key这个属性，且属性值唯一。</p>
+    <hr>
+    <p v-show="val1">显示</p>
+    <p v-show="val2">隐藏</p>
+    <h2>难点1：v-if和v-show的适用场景</h2>
+    <hr>
+    <p>v-for的使用</p>
+    <span v-for="item in huluwas">{{item}}</span>
+    <br>
+    <span v-for="itme in imgs">
+      <img :src="'../img/'+itme+'.png'" :class="itme" width="50%"><br>
+    </span>
+    <p v-for="phone in cartList">
+      <span>{{phone.name}}</span>,价格：<span>{{phone.price}}</span>
+    </p>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        val1: true,
+        val2: false,
+        gender: 'nan',
+        type: 'userName',
+        huluwas: [
+          '大娃',
+          '二娃',
+          '三娃',
+          '四娃',
+          '五娃',
+          '六娃',
+          '七娃'
+        ],
+        imgs: [
+          'pic1',
+          'pic2',
+          'pic3',
+          'pic4'
+        ],
+        cartList: [
+          {
+            name: 'iphone 11',
+            price: 5999
+          },
+          {
+            name: 'mi 10',
+            price: 3999
+          }
+        ]
+      },
+      methods: {
+        changeType() {
+          this.type == 'userName' ? this.type = 'phone' : this.type = 'userName'
+        }
+      }
+    })
+  </script>
+</body>
+</html>

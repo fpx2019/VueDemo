@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .login-content {
+      width: 360px;
+      margin: 0 auto;
+      border: 1px solid #999;
+      border-radius: 6px;
+      text-align: center;
+    }
+    .item {
+      margin-top: 40px;
+      position:relative
+    }
+    .item label {
+      display: inline-block;
+      width: 68px;
+      text-align: right;
+    }
+    .item input {
+      border-bottom: 1px solid #999;
+      border-top: 1px solid transparent;
+      border-right: 1px solid transparent;
+      border-left: 1px solid transparent;
+      outline: none;
+      font-size: 16px;
+      color: #333;
+    }
+    .btn {
+      width: 100px;
+      height: 40px;
+      background-color: #56a5f1;
+      border-radius: 6px;
+      border: none;
+      outline: none;
+      color: #fff;
+      cursor: pointer;
+      margin-bottom: 50px;
+    }
+    .error {
+      color: tomato;
+      position: absolute;
+      bottom: -21px;
+      left: 120px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="login-content">
+      <h1>欢迎登陆</h1>
+      <span>18888888888</span>
+      <div class="item">
+        <label>手机号:</label>
+        <input type="text" v-model="phone" v-on:blur="checkPhone" autofocus>
+        <span class="error">{{phoneErr}}</span>
+      </div>
+      <div class="item">
+        <label>密码:</label>
+        <input type="password" v-model="pwd" v-on:blur="checkPwd">
+        <span class="error">{{pwdErr}}</span>
+      </div>
+      <div class="item">
+        <button class="btn" v-on:click="login">登陆</button>
+      </div>
+    </div>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        phone: '',
+        pwd: '',
+        phoneErr: ' ',
+        pwdErr: ' '
+      },
+      methods: {
+        login() {
+          if(this.phoneErr == '' && this.pwdErr == '') {
+            let userArr = []
+            // 根据localStorage的值，给userArr赋值，保证它是数组
+            if(localStorage.getItem('userInfo')) {
+              userArr = JSON.parse(localStorage.getItem('userInfo'));
+            }else {
+              userArr = []
+            }
+            userArr.forEach((item, index) => {
+              if(true) {
+                if(item.phone == this.phone && item.pwd == this.pwd) {
+                  location.href = './0319directive.html'
+                }else {
+                  this.phoneErr = '手机号和密码不匹配'
+                }
+              }else {
+                this.phoneErr = '该手机号尚未注册！'
+              }
+            });
+          }
+        },
+        // 检查手机号
+        checkPhone() {
+          if(!(/^1\d{10}$/.test(this.phone))) {
+            this.phoneErr = '手机号格式有误！'
+          }else {
+            this.phoneErr = ''
+          }
+        },
+        // 检查密码
+        checkPwd() {
+          if(this.pwd == '') {
+            this.pwdErr = '请输入密码！'
+          }else if(this.pwd.length<6) {
+            this.pwdErr = '密码格式有误！'
+          }else {
+            this.pwdErr = ''
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  .box {
+    width: 400px;
+    height: 400px;
+    border: solid 1px black;
+  }
+</style>
+
+<body>
+  <div id="app">
+    <lzw>
+      <ul>
+        <li v-for="(item,index) in arr" ::key="index">
+          <p v-for="(x,y) in arr" ::key="x">
+            {{item}}*{{x}}={{item*x}}
+          </p>
+        </li>
+      </ul>
+    </lzw>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: function () {
+        return {
+          arr: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+        }
+      },
+      components: {
+        lzw: {
+          template:
+            `
+            <div>
+                    <div class="box" :style={background:newColor}>
+                        <slot></slot>
+                    </div>
+                    <button v-for="bgc in color" :key="bgc.index" 
+                    @click="changeItem(bgc)">
+                        {{bgc}}
+                    </button>
+                </div>
+          `,
+          data() {
+            return {
+              color: [
+                'blue', 'yellow', 'red'
+              ],
+              newColor: 'white'
+            }
+          },
+          methods: {
+            changeItem(bgc) {
+              this.newColor = bgc
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

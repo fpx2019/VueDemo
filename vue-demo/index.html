@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VUE demo1</title>
+  <style>
+    .computed {
+      margin: 30px 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- view -->
+  <div class="myApp">
+    <div class="computed">
+      <input type="text" v-model="num1">
+    +
+      <input type="text" v-model="num2">
+      =
+      <span>{{Number(num1) + Number(num2)}}</span>
+    </div>
+    <div class="computed">
+      <input type="text" v-model="num3">
+      -
+      <input type="text" v-model="num4">
+      =
+      <span>{{num3 - num4}}</span>
+    </div>
+    <div class="computed">
+      <input type="text" v-model="num5">
+      *
+      <input type="text" v-model="num6">
+      =
+      <span>{{num5 * num6}}</span>
+    </div>
+    <div class="computed">
+      <input type="text" v-model="num7">
+      /
+      <input type="text" v-model="num8">
+      =
+      <span>{{num7 / num8}}</span>
+    </div>
+  </div>
+  <script id="template" type="x-template">
+    <div>
+      
+    </div>
+  </script>
+  <script src="./js/vue.js"></script>
+  <script>
+    // viewModel
+    let vm = new Vue({
+      // el: element
+      el: '.myApp',
+      data: {
+        num1: 0,
+        num2: 0,
+        num3: 0,
+        num4: 0,
+        num5: 0,
+        num6: 0,
+        num7: 0,
+        num8: 1,
+      },
+      template: `#template`,
+    })
+  </script>
+</body>
+</html>

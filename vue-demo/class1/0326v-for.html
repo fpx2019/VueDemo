@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .page {
+      display: inline-block;
+      /* width: 40px; */
+      height: 20px;
+      text-align: center;
+      cursor: pointer;
+      padding: 10px;
+    }
+    .page:hover {
+      background-color: #56a5f1;
+      color: white;
+    }
+    .active {
+      text-decoration: underline;
+    }
+    .active:hover {
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <h1>v-for的高级使用</h1>
+    <span v-for="(stu,index) in stuArr">{{index+1}}. {{stu}} <br></span>
+    <hr>
+    <p>v-for遍历对象</p>
+    <span v-for="info in stuDetail">{{info}} &nbsp;&nbsp;</span>
+    <hr>
+    <span v-for="(val,key,index) in stuDetail">
+      {{index+1}}.{{key}}:{{val}} &nbsp;&nbsp;<br>
+    </span>
+    <hr>
+    <p>v-for遍历整数</p>
+    <button v-for="num in 3">btn{{num}}</button>
+    <p>模拟分页：</p>
+    <span class="page" v-show="currentPage != 1" @click="currentPage --">上一页</span>
+    <span v-for="page in 5" 
+      :class="[{active:page == currentPage}, 'page']" @click="changePage(page)">
+      {{page}}
+    </span>
+    <span class="page" v-show="currentPage != 5" @click="currentPage ++">下一页</span>
+    <hr>
+    <span>前端工程师投送地：</span>
+    <span v-for="place in placeList">{{place}} 、 </span>
+    <br>
+    <label>我就要去：</label>
+    <input type="text" v-model="place">
+    <button @click="aoligei">奥利给</button><br>
+    <button @click="sortList">排序</button><br>
+    <button @click="reverseList">倒序</button><br>
+    <p>============</p>
+    <button @click="changeLen">修改长度</button><br>
+    <button @click="changeContent">修改内容</button><br>
+
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        stuArr:[
+          'stu1',
+          'stu2',
+          'stu3',
+          'stu4',
+          'stu5'
+        ],
+        stuDetail: {
+          name: 'Jack Ma',
+          class: 'class 1',
+          stuNo: '001',
+          age: '18',
+          gender: 'male'
+        },
+        currentPage: 5,
+        placeList: [
+          '上海',
+          '杭州',
+          '广州',
+          '深圳',
+          '苏州',
+          '宁波'
+        ],
+        place: ''
+      },
+      methods: {
+        // 模拟页面跳转
+        changePage(page) {
+          // if(page == '-') {
+          //   this.currentPage = this.currentPage - 1
+          // }
+          if(this.currentPage != page) {
+            this.currentPage = page;
+            console.log(1)
+          }
+        },
+        aoligei() {
+          this.placeList.push(this.place);
+          this.place = ''
+        },
+        sortList() {
+          this.placeList.sort()
+        },
+        reverseList() {
+          this.placeList.reverse()
+        },
+        changeLen() {
+          // this.placeList.length = 4
+          this.placeList.splice(4)
+        },
+        changeContent() {
+          // this.placeList[2] = '荥阳'
+          this.placeList.splice(2,1,'')
+        }
+      },
+    })
+  </script>
+</body>
+</html>

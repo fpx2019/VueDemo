@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #app {
+      width: 400px;
+      height: 600px;
+      border: 1px solid #666;
+      border-radius: 6px;
+    }
+    .chatLogs {
+      padding: 10px;
+      height: 400px;
+      overflow: auto;
+    }
+    .edit {
+      height: 200px;
+      border-top: 1px solid #666;
+      position: relative;
+    }
+    .info {
+      border: none;
+      outline: none;
+      display: block;
+      width: 390px;
+      margin-top: 5px;
+      margin-left: 5px;
+      height: 40px;
+      max-height: 160px;
+      overflow: auto;
+    }
+    .btn {
+      border: none;
+      outline: none;
+      display: block;
+      width: 70px;
+      height: 30px;
+      position: absolute;
+      bottom: 25px;
+      right: 5px;
+      background-color: #56a5f1;
+      color: white;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+    .bnt-b {
+      right: 85px;
+    }
+    .my {
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="chatLogs">
+      <p v-for="msg in msgLogs" :class="{my: msg.role == 'A', other: msg.role == 'B'}">
+        {{msg.content}}
+      </p>
+    </div>
+    <div class="edit">
+      <input type="text" class="info" autofocus v-model="info">
+      <button class="btn" @click="sendMsg('A')">send A</button>
+      <button class="btn bnt-b" @click="sendMsg('B')">send B</button>
+    </div>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        info: '',
+        msgLogs: [
+          {
+            content: '欢迎大家来观看直播 “20200328,7-8节，前端1班”。',
+            role: 'A'
+          },
+          {
+            content: '他来了，他来了',
+            role: 'B'
+          },
+        ]
+      },
+      methods: {
+        sendMsg(role) {
+          let msg = {
+            content: this.info,
+            role: role
+          }
+          this.msgLogs.push(msg);
+          this.info = ''
+        }
+      },
+    })
+  </script>
+</body>
+</html>

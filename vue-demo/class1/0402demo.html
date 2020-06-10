@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .bg-pic {
+      width: 400px;
+      height: 400px;
+      background-image: url('../img/bg.jpg');
+      background-size: cover;
+      position: relative;
+    }
+    .btns {
+      width: 60px;
+      margin: 10px;
+    }
+    .slot {
+      display: block;
+      width: 50px;
+      height: 50px;
+      border: 2px solid red;
+      border-radius: 50%;
+      position: absolute;
+      color: white;
+      line-height: 50px;
+      text-align: center;
+      font-size: 30px;
+    }
+    .jin-span {
+      top: 30px;
+      left: 175px;
+    }
+    .mu-span {
+      top: 115px;
+      right: 50px;
+    }
+    .tu-span {
+      top: 115px;
+      left: 50px;
+    }
+    .shui-span {
+      top: 260px;
+      right: 90px;
+    }
+    .huo-span {
+      top: 260px;
+      left: 90px;
+    }
+    .websit {
+      width: 300px;
+      height: 300px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <p>五行归位</p>
+    <div class="bg-pic">
+      <span v-for="(item, index) in wuxingList" :key="index"
+      :class="['slot', wuxingList2[index]+'-span']" @click="pickSlot(index)">
+      {{contentList[index]}}
+    </span>
+    </div>
+    <button v-for="(item, index) in wuxingList" :key="index"
+      class="btns" @click="pickEl(index)">{{item}}
+    </button>
+    <!-- 点击按钮，切换颜色 -->
+    <div class="websit" :style="{background: bgc}"></div>
+    <button @click="changeThems('pink')">pink</button>
+    <button @click="changeThems('#56a5f1')">blue</button>
+    <button @click="changeThems('rgb(200,200,200)')">gary</button>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        wuxingList: [
+          '金','木','水','火','土'
+        ],
+        wuxingList2: [
+          'jin','mu','shui','huo','tu'
+        ],
+        contentList: [
+        '','','','',''
+        ],
+        activeEl: 0,
+        bgc: 'pink'
+      },
+      methods: {
+        // 选择元素
+        pickEl: function(index) {
+          this.activeEl = index
+        },
+        // 选择插槽
+        pickSlot(index) {
+          // console.log('你选择了：'+this.wuxingList[this.activeEl]);
+          // console.log('正确答案是：'+this.wuxingList[index])
+          // console.log(this.activeEl == index)
+          if(this.activeEl == index){
+            this.contentList.splice(index, 1, this.wuxingList[index])
+          }
+        },
+        // 切换背景颜色
+        changeThems(color) {
+          this.bgc = color;
+        }
+      },
+    })
+  </script>
+</body>
+</html>

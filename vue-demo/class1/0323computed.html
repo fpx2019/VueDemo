@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .name {
+      display: inline-block;
+      width: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <p>{{message}}</p>
+    <p>{{msgReverse}}</p>
+    <p>{{msgReverse1()}}</p>
+    <hr>
+    <span class="name">{{cartInfo[0].name}}</span>
+    <span class="price">{{cartInfo[0].price}}</span>
+    <span class="num"><input type="text" v-model="cartInfo[0].num"></span>
+    <br>
+    <span class="name">{{cartInfo[1].name}}</span>
+    <span class="price">{{cartInfo[1].price}}</span>
+    <span class="num"><input type="text" v-model="cartInfo[1].num"></span>
+    <br>
+    <hr>
+    <p>总计：{{totalPrice}}</p>
+    <p>总计：{{totalPrice}}</p>
+    <p>总计：{{totalPrice}}</p>
+    <p>1总计：{{totalPrice1()}}</p>
+    <p>1总计：{{totalPrice1()}}</p>
+    <p>1总计：{{totalPrice1()}}</p>
+    <input type="text" v-model="searchArg">
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        message: '郑州职业技术学院',
+        cartInfo: [
+          {
+            name: 'mi 9',
+            price: '3999',
+            num: 10
+          },
+          {
+            name: 'iphone SE2',
+            price: '2999',
+            num: 10
+          }
+        ],
+        firstName: 'Bill',
+        lastName: 'Gates',
+        age: 0,
+        // searchArg: 'name=bill&age=18&job=CEO&gender=male'
+      },
+      computed: {
+        msgReverse: function() {
+          return this.message.split('').reverse().join('')
+        },
+        totalPrice: function() {
+          console.log('计算属性');
+          let price = 0;
+          this.cartInfo.forEach(element => {
+            price += element.price * element.num
+          });
+          return price
+        },
+        fullName: {
+          // getter
+          get: function () {
+            return this.firstName + ' ' + this.lastName
+          },
+          // setter
+          set: function(newVal) {
+            let names = newVal.split(' ');
+            this.firstName = names[0];
+            this.lastName = names[1]
+          }
+        },
+        searchArg: {
+          get: function() {
+            
+          },
+          set: function(newVal) {
+            this.age = newVal.split('&')[1].split('=')[1]
+          }
+        }
+      },
+      methods: {
+        msgReverse1: function() {
+          return this.message.split('').reverse().join('')
+        },
+        totalPrice1: function() {
+          console.log('函数');
+          let price = 0;
+          this.cartInfo.forEach(element => {
+            price += element.price * element.num
+          });
+          return price
+        }
+      }
+    })
+  </script>
+</body>
+</html>

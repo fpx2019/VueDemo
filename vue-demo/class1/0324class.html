@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .text {
+      text-decoration: line-through;
+    }
+    .text1 {
+      text-decoration: overline;
+    }
+    .other-class {
+      text-decoration: underline;
+    }
+    .red {
+      color: red;
+
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <span :class="huliwaList[0]">大娃</span>
+    <span :class="huliwaList[1]">二娃</span>
+    <span :class="huliwaList[2]">三娃</span>
+    <span :class="huliwaList[3]">四娃</span>
+    <span :class="huliwaList[4]">五娃</span>
+    <span :class="huliwaList[5]">六娃</span>
+    <span :class="huliwaList[6]">七娃</span>
+    <p :class="class1+1">1-1.通过VUE控制class——字符串拼接</p>
+    <p :class="{text: hasClass}">
+      2-1.通过VUE控制class——object
+      <button @click="hasClass = !hasClass">toggle</button>
+    </p>
+    <p :class="{'other-class': hasClass}">2-2.通过VUE控制class——object</p>
+    <p :class="{'other-class': hasClass}" class="red big">2-3.通过VUE控制class——object</p>
+    <p :class="classObj">2-4.通过VUE控制class——object</p>
+    <p :class="computedClassObj">2-5.通过VUE控制class——object,计算属性</p>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        class1: 'text',
+        hasClass: true,
+        isTxt: false,
+        isActive: true,
+        huliwaList: [
+          'dawa','erwa','sanwa','siwa','wuwa','liuwa','qiwa'
+        ],
+        classObj: {
+          'other-class': true, 
+          text: false, 
+          active: true
+        }
+      },
+      computed: {
+        computedClassObj: function(){
+          // ...
+          return {
+            'other-class': 1, 
+            text: false, 
+            active: 0
+          }
+        }
+      },
+      methods: {
+        sss() {
+          this.classObj.active = false
+          this.classObj.text = true
+          this.classObj['xxx-class'] = true
+        }
+      },
+    })
+  </script>
+</body>
+</html>

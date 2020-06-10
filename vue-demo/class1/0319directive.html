@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-model="money">
+    <button v-on:click="money ++">充值</button>
+    <p style="color:red">ta 喜不喜欢你？</p>
+    <span>{{bfArr[num]}}</span>
+    <button v-on:click="num = Math.round(Math.random()*4)">换一换</button>
+    <br>
+    <br>
+    <img :src="'../img/pic'+imgIndex+'.png'" width="80%">
+    <button v-on:click="changeImg">切换图片</button>
+    <br>
+    <br>
+    <p>最嫩idol：{{bfArr[bfArr.length-1]}}</p>
+    <input type="text" v-model="val1" v-on:change="addIdol">
+    <!-- method方法，vue实例的选项参数之一 -->
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        money: 999,
+        num: 0,
+        bfArr: [],
+        imgIndex: 1,
+        val1: ''
+      },
+      mounted() {
+        this.changeImg(7878787)
+      },
+      methods: {
+        changeImg(info) {
+          console.log(event,info)
+          this.imgIndex ++
+        },
+        addIdol() {
+          this.bfArr.push(this.val1);
+          this.val1 = ''
+        }
+      },
+    })
+  </script>
+</body>
+</html>

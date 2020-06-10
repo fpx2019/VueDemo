@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <h1>使用PROPS向子组件传递数据</h1>
+    <p>{{today}}</p>
+    <input type="text" v-model="today">
+    <hr>
+    <class1 msg="hello" info="vue" pm-time="today" :time="today"></class1>
+    <hr>
+    <obj-props :prop-a="100" prop-b="abc" :prop-c="true"
+      :prop-d="11" :prop-e="[1,2,3]" prop-f="12"></obj-props>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: function() {
+        return {
+         today: '2020-04-08'
+        }
+      },
+      components: {
+        class1: {
+          template: '<p>{{date}}---{{msg}},{{info}},{{time222}},,,,,,{{newTime}}{{pmTime}}</p>',
+          props: ['msg', 'info', 'time', 'pmTime'],
+          data() {
+            return {
+              date: new Date(),
+              time222: this.time
+            }
+          },
+          computed: {
+            newTime:function() {
+              return this.time
+            }
+          }
+        },
+        'obj-props': {
+          template: 
+          `
+            <div>
+              <p>我是一个组件，我的props是一个对象</p>
+              <p>propA: {{propA}}</p>
+              <p>propB: {{propB}}</p>
+              <p>propC: {{propC}}</p>
+              <p>propD: {{propD}}</p>
+              <p>propE: {{propE[1]}}</p>
+              <p>propF: {{propF}}</p>
+            </div>
+          `,
+          props:  {
+            propA: Number,
+            propB: [String, Number],
+            propC: {
+              type: Boolean,
+              default: false
+            },
+            propD: {
+              type: Number,
+              default: 777,
+              required: false
+            },
+            propE: {
+              type: Array,
+              default: function() {
+                return []
+              }
+            },
+            propF: {
+              validator: function(val) {
+                return val>10
+              }
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <h1>绑定值</h1>
+    <p>绑定单选框</p>
+    <label>收听广播</label>
+    <input v-for="(FM,index) in vals" :key="index" 
+      type="radio" v-model="checked" :value="FM">
+    <span>你的选择是：{{checked}}</span>
+    <hr>
+    <p>绑定多选框</p>
+    <input type="checkbox" v-model="get" :true-value="val1" :false-value="val2">
+    <br>
+    <span>你的选择是：{{get}}</span>
+    <span>val1是：{{val1}}</span>
+    <span>val2是：{{val2}}</span>
+    <hr>
+    <p>绑定下拉框</p>
+    <select v-model="location">
+      <option v-for="(city,index) in options" :key="index" :value="city.val">
+        {{city.text}}
+      </option>
+    </select>
+    <p>所选地址:{{location.value}}({{location.code}})</p>
+    <hr>
+    <hr>
+    <p>修饰符</p>
+    <span>.lazy</span><br>
+    <input type="text" v-model.lazy="msg">
+    <p>{{msg}}</p>
+    <span>.number</span><br>
+    <input type="text" v-model.number="msg2">
+    <p>{{msg2}}</p>
+    <span>.trim</span><br>
+    <input type="text" v-model.trim="msg3">
+    <p>{{msg3}}</p>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        vals: [
+          'FM 1041', 'FM 881', 'FM 1024'
+        ],
+        checked: 'FM 1041',
+        val1: 'aaa',
+        val2: 'bbb',
+        get: 'aaa',
+        options: [
+          {
+            text: '郑州',
+            val: {
+              value: '郑州',
+              code: '001'
+            }
+          },
+          {
+            text: '新乡',
+            val: {
+              value: '新乡',
+              code: '002'
+            }
+          },
+          {
+            text: '焦作',
+            val: {
+              value: '焦作',
+              code: '003'
+            }
+          },
+          {
+            text: '开封',
+            val: {
+              value: '开封',
+              code: '004'
+            }
+          }
+        ],
+        location: '',
+        msg: '',
+        msg2: '',
+        msg3: ''
+      }
+    })
+  </script>
+</body>
+</html>

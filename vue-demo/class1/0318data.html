@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <h1>{{info}}</h1>
+    <p>喂，{{people}}吗？这里有人不听课！</p>
+    <p>还有谁？</p>
+    <p>有{{stu.length}}个，有{{stu[5]}}</p>
+    <p>他叫{{stuInfo.name}}，是一个{{stuInfo.job}}</p>
+    <p>{{!isTrue ? 'class1' : 'class2'}}</p>
+    <h1>{{time}}</h1>
+    <!-- v-html指令 -->
+    <h1 v-html="msg"></h1>
+    <!-- v-once指令 -->
+    <h3 v-once>{{age*2}}</h3>
+    <input type="text" v-model="age">
+    <br>
+    <!-- <img v-bind:src="pic1"> -->
+    <!-- <a v-bind:href="target1">{{target1}}</a> -->
+    <!-- v-bind是vue中最常用的指令，缩写为 “:” -->
+    <!-- <p :erwer="attr1">7777</p> -->
+    <img v-bind:src="'../img/pic'+imgIndex+'.png'" width="50%">
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        info: '789',
+        age: 1,
+        msg: `<p style="color:red">777</p>`,
+        people: '警察叔叔',
+        stu: [1,2,3,4,5,6,7],
+        stuInfo: {
+          name: 'Jack Ma',
+          job: 'teacher'
+        },
+        isTrue: false,
+        time: new Date(),
+        pic: '../img/patient_pic.png',
+        pic1: '../img/title1_bg.png',
+        target1: 'xxxx.html',
+        attr1: 'val001',
+        imgIndex: 1
+      },
+      beforeUpdate() {
+        this.time = new Date();
+        this.imgIndex >=4 ? this.imgIndex = 1: this.imgIndex ++
+      }
+    })
+  </script>
+</body>
+</html>

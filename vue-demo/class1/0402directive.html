@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <input type="text" v-focus>
+    <div v-demo:arg111.a.b="msg"></div>
+    <div v-dsh="{color: colorVal, text: 'hello dsh'}"></div>
+    <input type="text" v-model="colorVal">
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        msg: 'hello',
+        colorVal: 'red'
+      },
+      // 局部注册
+      directives: {
+        // 功能：使该元素获取光标
+        focus: {
+          inserted: function(el) {
+            el.focus();
+          }
+        },
+        // 功能：将自己的内容显示到元素中
+        demo: {
+          bind: function(el, binding, vnode) {
+            let str = JSON.stringify;
+            el.innerHTML = 
+            `
+              name: ${str(binding.name)} <br>
+              value: ${str(binding.value)} <br>
+              expression: ${str(binding.expression)} <br>
+              argument: ${str(binding.arg)} <br>
+              modifiers: ${str(binding.modifiers)} <br>
+              vnode keys: ${Object.keys(vnode).join(', ')}
+            `
+            // setAttr
+            // getAttr
+            // console.log()
+            // classList.add()/remove() ...
+          }
+        },
+        // 功能：打印指令值中的color和text
+        dsh: {
+          bind: function(el, binding, vnode) {
+            console.log(111,binding.value.color);
+            console.log(111,binding.value.text);
+          },
+          update:function(el, binding, vnode) {
+            console.log(222,binding.value.color);
+            console.log(222,binding.value.text);
+          },
+        }
+      }
+    })
+  </script>
+</body>
+</html>

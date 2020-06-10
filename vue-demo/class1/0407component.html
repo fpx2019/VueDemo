@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <!-- 第一个组件，全局注册 -->
+    <zzy></zzy>
+    <!-- 第二个组件，局部注册 -->
+    <zzy-software></zzy-software>
+    <!-- 第三个组件，使用is属性 -->
+    <table>
+      <tbody is="table-div"></tbody>
+    </table>
+    <!-- 第四个组件，关注data属性 -->
+    <btn-component></btn-component>
+    <btn-component></btn-component>
+    <btn-component></btn-component>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    // 全局注册组件
+    Vue.component('zzy',{
+      template: '<h1>777</h1>'
+    })
+    let child = {
+      template: '<mark>2020-04-07</mark>',
+    }
+    let vm = new Vue({
+      el: '#app',
+      data: function() {
+        return {
+          
+        }
+      },
+      // 局部注册
+      components: {
+        'zzy-software':child,
+        'table-div': {
+          template: '<div>使用is属性判断组件</div>'
+        },
+        'btn-component': {
+          template: '<button @click="num ++">{{num}}</button>',
+          data: function() {
+            return {
+              num: 1
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

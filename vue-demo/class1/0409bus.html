@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <h1>非父子组件传值</h1>
+    <div>兄弟组件传过来的值：{{msg}}</div>
+    <psx></psx>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    Vue.component('psx', {
+      template: 
+          `
+            <div>
+              <button @click="handlerEvent">组件通信</button>
+            </div>
+          `,
+      methods: {
+        handlerEvent() {
+          bus.$emit('on-msg', '这是裴圣溪的组件');
+        }
+      } 
+    })
+    // 声明一个空的vue实例，作为事件总线
+    let bus = new Vue();
+    let vm = new Vue({
+      el: '#app',
+      data: function() {
+        return {
+          msg: ''
+        }
+      },
+      mounted() {
+        // 保留this指向
+        let _this = this; // 这个this是vm
+        bus.$on('on-msg', function(data) {
+          console.log(data)
+          // this.xxx    这个this是bus
+          _this.msg = data
+        })
+      }
+    })
+  </script>
+</body>
+</html>

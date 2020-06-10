@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html {
+      font-size: 20px;
+    }
+    .active {
+      text-decoration: underline;
+    }
+    .error {
+      color: tomato;
+    }
+    .checked {
+      font-weight: 900;
+    }
+    .demo {
+      font-size: 14px;
+    }
+    .demo:hover {
+      font-size: 18px;
+      color: tomato;
+      font-weight: 900;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <p style="font-size: 2rem;">v-bind绑定class的数组语法以及绑定style</p>
+    <p :class="[activeClass,errorClass,checkedClass]">绑定class的数组语法-基础版</p>
+    <p :class="[isActive ? 'active' : '',errorClass]">
+      绑定class的数组语法-包含三元表达式
+      <button @click="changeClass">toggle</button>
+    </p>
+    <p :class="[{active: isActive}, errorClass, 'class18-1']">
+      绑定class的数组语法-数组套对象
+      <button @click="changeClass">toggle</button>
+    </p>
+    <hr>
+    <hr>
+    <hr>
+    <p :style="{fontSize:size+'px',color:txtColor}">绑定style</p>
+    <input type="text" v-model="size">
+    <p :style="styleObj">绑定style-obj</p>
+    <p :style="[styleObj, style2]">绑定style-数组</p>
+    <p class="demo" :style="{transition: time}">style自动添加前缀</p>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        activeClass: 'active',
+        errorClass: 'error',
+        checkedClass: 'checked',
+        isActive: true,
+        size: '20',
+        txtColor: '#56a5f1',
+        styleObj: {
+          cursor: 'pointer',
+          'font-weight': 900,
+        },
+        style2: {
+          color: 'green'
+        },
+        time: '2s',
+        rSize: '24'
+      },
+      methods: {
+        changeClass() {
+          this.isActive = !this.isActive
+        }
+      },
+    })
+  </script>
+</body>
+</html>

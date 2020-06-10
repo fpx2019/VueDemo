@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>777</title>
+    </head>
+
+    <body>
+        <div id="app" style="margin: 200px auto; width: 1000px; text-align: center;">
+            {{msg}}
+        </div>
+        <script src="../js/vue.js"></script>
+        <script>
+            let vm = new Vue({
+                el: '#app',
+                data: {
+                    msg: ''
+                },
+                mounted: function () {
+                    this.show()
+                },
+                methods: {
+                    show: function () {
+                        let i = 3;
+                        let timer = setInterval(() => {
+                            this.msg = `等待${i--}s,你会看到全世界最帅的人`;
+                            if (i == -1) {
+                                clearInterval(timer)
+                                this.msg = '屏幕上有一张帅脸';
+                                document.body.style.background = 'black';
+                                app.style.color = 'white';
+                                app.style.margin = '0 auto';
+                            }
+                        }, 1000);
+                    }
+                }
+            })
+        </script>
+    </body>
+
+</html>

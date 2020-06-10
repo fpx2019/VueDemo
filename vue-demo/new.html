@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <p>{{msg}}</p>
+  </div>
+  <script id="template" type="x-template">
+    <div>
+      <ul>
+        <li>{{msg}}</li>
+        <li class="">{{msg1}}</li>
+      </ul>
+      <selet>
+        <option value="1">A</option>
+      </selet>
+    </div>
+    
+  </script>
+  <script src="./js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        msg: 'hello',
+        msg1: 'vue'
+      },
+      template: `#template`
+    })
+  </script>
+</body>
+</html>

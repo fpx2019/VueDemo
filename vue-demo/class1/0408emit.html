@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+    <p>子组件中的num值:{{value}}</p>
+    <hr>
+    <!-- 如果要在自定义组件中监听原生事件，需要加上.native这个修饰符 -->
+    <hmb @zjy="zjyHandler" @dblclick.native="dblHandler"></hmb>
+    <hr>
+    <!-- 在组件上使用v-model指令 -->
+    <xcx v-model="childNum"></xcx>
+    <h1>来自子组件的数据，使用v-model监听:{{childNum}}</h1>
+    <!-- v-modle的庐山真面目 -->
+    <!-- <input type="text" v-model="inputVal"> -->
+    <input @input="inputVal = $event.target.value" :value="inputVal">
+    <p>{{inputVal}}</p>
+    <hr>
+    <!-- 使用v-modle从父组件向子组件传值 -->
+    <ca v-model="totle"></ca>
+    <button @click="reduceTotle">-1</button>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: function () {
+        return {
+          value: 0,
+          childNum: 0,
+          inputVal: '',
+          totle: 0
+        }
+      },
+      components: {
+        hmb: {
+          template:
+            `
+            <div style="width: 200px;height: 200px; border: 1px solid red;">
+              <span>{{num}}</span>
+              <button @click="changeNum">click</button>
+              <mark>子传父的步骤</mark>
+              <mark>1.先在子组件中计算好数据，通过$emit方法发射，第一个参数是自定义是事件的名称</mark>
+              <mark>第二、三、四..个参数是要传递的数据</mark>
+              <mark>2.在父组件中找到子组件的标签，通过@监听自定义事件</mark>
+              <mark>3.在对应的回调函数中获取传过来的值</mark>
+            </div>
+          `,
+          data: function () {
+            return {
+              num: 1
+            }
+          },
+          methods: {
+            changeNum() {
+              // ...
+              this.num++;
+              this.$emit('zjy', this.num, 666)
+            }
+          },
+        },
+        xcx: {
+          template:
+            `
+            <div>
+              <p>{{num}}</p>
+              <button @click="handlerClick">+1</button>
+            </div>
+          `,
+          data() {
+            return {
+              num: 0
+            }
+          },
+          methods: {
+            handlerClick() {
+              this.num++;
+              this.$emit('input', this.num);
+            }
+          }
+        },
+        ca: {
+          template: '<input :value="value" @input="updateVal">',
+          data() {
+            return {
+
+            }
+          },
+          props: ['value'],
+          methods: {
+            updateVal(event) {
+              this.$emit('input', event.target.value)
+            }
+          }
+        }
+      },
+      // 父组件的方法
+      methods: {
+        zjyHandler(val, data) {
+          this.value = val
+          console.log(data)
+        },
+        dblHandler() {
+          alert(666)
+        },
+        inputHandler($event) {
+          this.inputVal = $event.target.value
+        },
+        reduceTotle() {
+          this.totle--
+        }
+      },
+    })
+  </script>
+</body>
+
+</html>

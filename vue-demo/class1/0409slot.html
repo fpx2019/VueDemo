@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    
+    <!-- H<sub>2</sub>O = 
+    2H<sup>+</sup> + O<sup>2-</sup> -->
+    <child-component>
+      <div slot="footer">我是底部的内容</div>
+      <h2 slot="header">我是头部标题</h2>
+      <p>我是正文</p>
+      <p>我也是正文</p>
+      <p>我又是正文</p>
+      <p>我双是正文</p>
+    </child-component>
+    <hr>
+    <hr>
+    <msl>
+      <template slot-scope="props">
+        <div>
+          <p>2020-04-09   16:45</p>
+          <p>{{props.msg}}</p>
+        </div>
+      </template>
+    </msl>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: function() {
+        return {
+          // 使用父组件的数据控制子组件，父组件的作用域
+          isShow: true
+        }
+      },
+      components: {
+        'child-component': {
+          template: 
+            `
+              <div v-if="isShow">
+                <div class="header">
+                  <!-- 具名插槽，具有slot属性，且值匹配的标签会显示着这里 -->
+                  <slot name="header"></slot>
+                </div>
+                <div class="main">
+                <!-- 单个插槽，容纳没有name属性的标签 -->
+                  <slot>
+                    777
+                  </slot>
+                </div>
+                <div class="footer">
+                  <slot name="footer"></slot>
+                </div>
+              </div>
+            `,
+          data() {
+            return {
+              // 使用子组件的数据控制子组件，子组件的作用域
+              isShow: true
+            }
+          },
+        },
+        msl: {
+          template: 
+          `
+            <div>
+              <slot :msg="hello"></slot>
+            </div>
+          `,
+          data() {
+            return {
+              hello: 666
+            }
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

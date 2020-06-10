@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="app">
+    <span v-for="num in arr1">{{num}}</span>
+    <p v-for="phone in arr2">{{phone.name}}-{{phone.price}}</p>
+    <p>第一种情况：通过下标修改数组的一整项</p>
+    <p>第二种情况：通过数组本身的长度修改数组</p>
+    <p>解决方案一：splice(index, length, newValue)/splice(newLength)</p>
+    <p>解决方案二：vm.$set/Vue.set(arr,index,val)</p>
+    <hr>
+    <p>vue中对象的监听</p>
+    <p v-for="(val, key, index) in obj1">{{index+1}}.{{key}}:{{val}}</p>
+    <p>第一种情况：新增对象的属性</p>
+    <p>第二种情况：删除对象的属性</p>
+    <p>修改对象属性可以被监听到</p>
+    <p>新增:vm.$set(vm.obj1,'num1',150)/Vue.set(vm.obj1,'num1',150)</p>
+    <p>删除:Vue.delete(vm.obj1,'name')</p>
+  </div>
+  <script src="../js/vue.js"></script>
+  <script>
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        arr1: [
+          1,2,3,4,5
+        ],
+        arr2: [
+          {
+            name: 'iphone 11',
+            price: '9999'
+          },
+          {
+            name: 'iphone 10',
+            price: '8888'
+          },
+          {
+            name: 'iphone se',
+            price: '7777'
+          }
+        ],
+        obj1: {
+          name: 'iphone se',
+          price: '7777'
+        }
+      }
+    })
+  </script>
+</body>
+</html>
